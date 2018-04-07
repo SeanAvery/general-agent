@@ -16,7 +16,23 @@ class Game():
 
     def reshape(self, vector):
         return vector.reshape(1, self.obs_size) 
+    
+    def run_simulation(self, num_episodes):
+        for i in range(num_episodes):
+            self.run_episode()
+    
+    def run_episodes(self):
+        self.old_obs = self.reshape(self.env.reset())
         
+        while True:
+            done = self.run_tick()
+            if done:
+                break
+
+    def run_tick(self):
+        action = self.env.action_space.sample()
+        obs, reward, done, info = self.env.step(action)
+        return done
 
 if __name__ == '__main__':
     game = Game()
