@@ -11,15 +11,13 @@ class Game():
         print('self.action_size', self.action_size)
 
     def get_obs_dim(self):
-        self.obs_size = len(self.senv.observation_space.low)
+        self.obs_size = len(self.env.observation_space.low)
         print('self.obs_size', self.obs_size)
 
+    def reshape(self, vector):
+        return vector.reshape(1, self.obs_size) 
+        
 
 if __name__ == '__main__':
-    obs = env.reset()
-    while True:
-        obs, rew, done, info = env.step(env.action_space.sample())
-        print('obs', obs)
-        print('rew', rew)
-        if done:
-            break
+    game = Game()
+    
