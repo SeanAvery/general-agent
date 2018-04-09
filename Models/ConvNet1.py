@@ -5,8 +5,22 @@ class ConvNet1():
     ''' 
         SETUP 
     '''
-    def set_hyperparams(self, learning_rate):
-        self.learning_rate = learning_rate
+    def __init__(self, params):
+        self.set_hyperparams(params)
+        
+        # array of past events (old_state, new_state, action, reward) 
+        self.memory = []
+
+    def set_hyperparams(self, params):
+        self.learning_rate = params['learning_rate']
+        self.learning_rate_decay = params['learning_rate_decay']
+        self.learning_rate_min = params['learning_rate_min']
+        
+        self.exploration_rate =  params['exploratin_rate']
+        self.exploratin_rate_decay = params['exploration_rate_decay']
+        self.exploration_rate_min = params['exploratin_rate_min']
+
+        self.discount_rate = params['discount_rate']
 
     def set_obs_dim(self, obs_dim):
         self.obs_dim = obs_dim
@@ -18,7 +32,6 @@ class ConvNet1():
     '''
         MODEL
     '''
-    
     def create_conv_layer(self, inputs, num_filters, kernal_size):
         return tf.layers.conv2d(
             inputs=inputs,
