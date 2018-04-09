@@ -45,6 +45,12 @@ class ConvNet1():
             inputs=inputs,
             pool_size=pool_size,
             strides=num_strides)
+    
+    def create_dense_layer(self, inputs, units):
+        return tf.layers.dense(
+            inputs=inputs,
+            units=units,
+            activation=tf.nn.relu)
 
     def build_model(self):
         # -1 for dynamically sized batch
@@ -58,8 +64,10 @@ class ConvNet1():
         
         pool2 = self.create_pool_layer(conv2, [2, 2], 2)
 
-        pool2_flat = tf.reshape(pool2, [-1, 56 * 80 * 256]
+        pool2_flat = tf.reshape(pool2, [-1, 56 * 80 * 256])
         
+        dense1 = self.creaet_dense_layer(pool2_flat, 1024)
+
 if __name__ == '__main__':    
     convnet = ConvNet1()
     convnet.set_hyperparams(0.0001)
