@@ -37,7 +37,27 @@ class ConvNet1():
             padding='same',
             activation=tf.nn.relu)
         
-        pool1 = tf.layers.makx_pooling2d(inputs=conv1, pool_size=[2, 2], strides=2)
+        pool1 = tf.layers.max_pooling2d(
+            inputs=conv1, 
+            pool_size=[2, 2], 
+            strides=2)
+        
+        conv2 = tf.layers.conv2d(
+            inputs=pool1,
+            filters=64,
+            kernal_size=[5, 5],
+            padding='same',
+            activation=tf.nn.relu)
+
+        pool2 = tf.layers.max_pooling2d(
+            inputs=conv2, 
+            pool_size =[2, 2], 
+            strides=1)
+        
+        
+
+
+
         
 
 if __name__ == '__main__':    
