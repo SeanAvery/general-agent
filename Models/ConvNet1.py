@@ -14,4 +14,11 @@ class ConvNet1():
     def calc_num_filters(self):
         assert self.obs_dim
         return True
+
+
+''' Tests '''
+if __name__ == '__main__':
+    
+    convnet = ConvNet1()
+    convnet.set_hyperparams(0.0001)
         
