@@ -28,10 +28,19 @@ class ConvNet1():
             activation=tf.nn.relu)
 
     def build_model(self):
+        input_layer = tf.reshape(features['x'], [-1, 224, 320, 3])
         
-''' Tests '''
-if __name__ == '__main__':
-    
+        conv1 = tf.layers.conv2d(
+            inputs=inputs,
+            filters=32,
+            kernal_size=[5, 5],
+            padding='same',
+            activation=tf.nn.relu)
+        
+        pool1 = tf.layers.makx_pooling2d(inputs=conv1, pool_size=[2, 2], strides=2)
+        
+
+if __name__ == '__main__':    
     convnet = ConvNet1()
     convnet.set_hyperparams(0.0001)
         
