@@ -48,5 +48,3 @@ class Game():
         print("reward", reward) 
         return done
 
-if __name__ == '__main__':
-    game = Game()
