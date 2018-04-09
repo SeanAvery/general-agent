@@ -51,6 +51,12 @@ class ConvNet1():
             inputs=inputs,
             units=units,
             activation=tf.nn.relu)
+    
+    def create_dropout_layer(self, inputs, rate):
+        return tf.layers.dropout(
+            inputs=inputs,
+            rate=rate)
+
 
     def build_model(self):
         # -1 for dynamically sized batch
@@ -67,6 +73,8 @@ class ConvNet1():
         pool2_flat = tf.reshape(pool2, [-1, 56 * 80 * 256])
         
         dense1 = self.creaet_dense_layer(pool2_flat, 1024)
+        
+        dropout1 = self.create_dropout_layer(dense1, 0.4)
 
 if __name__ == '__main__':    
     convnet = ConvNet1()
