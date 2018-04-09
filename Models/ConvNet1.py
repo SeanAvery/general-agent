@@ -57,6 +57,8 @@ class ConvNet1():
         conv2 = self.create_pool_layer(pool1, 256, [5, 5])
         
         pool2 = self.create_pool_layer(conv2, [2, 2], 2)
+
+        pool2_flat = tf.reshape(pool2, [-1, 56 * 80 * 256]
         
 if __name__ == '__main__':    
     convnet = ConvNet1()
