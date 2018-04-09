@@ -14,8 +14,21 @@ class ConvNet1():
     def calc_num_filters(self):
         assert self.obs_dim
         return True
+    
+    '''
+        MODEL
+    '''
+    
+    def create_conv_layer(self):
+        return tf.layers.conv2d(
+            inputs=inputs,
+            filters=32,
+            kernal_size=[5,5],
+            padding="same",
+            activation=tf.nn.relu)
 
-
+    def build_model(self):
+        
 ''' Tests '''
 if __name__ == '__main__':
     
