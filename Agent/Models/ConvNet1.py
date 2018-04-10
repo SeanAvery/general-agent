@@ -2,20 +2,20 @@ import tensorflow as tf
 import numpy as np
 
 class ConvNet1():
-    ''' 
-        SETUP 
+    '''
+        SETUP
     '''
     def __init__(self, params):
         self.set_hyperparams(params)
-        
-        # array of past events (old_state, new_state, action, reward) 
+
+        # array of past events (old_state, new_state, action, reward)
         self.memory = []
 
     def set_hyperparams(self, params):
         self.learning_rate = params['learning_rate']
         self.learning_rate_decay = params['learning_rate_decay']
         self.learning_rate_min = params['learning_rate_min']
-        
+
         self.exploration_rate =  params['exploratin_rate']
         self.exploratin_rate_decay = params['exploration_rate_decay']
         self.exploration_rate_min = params['exploratin_rate_min']
@@ -25,10 +25,13 @@ class ConvNet1():
     def set_obs_dim(self, obs_dim):
         self.obs_dim = obs_dim
 
+    def set_action_dim(self, action_dim):
+
+
     def calc_num_filters(self):
         assert self.obs_dim
         return True
-    
+
     '''
         MODEL
     '''
@@ -45,13 +48,13 @@ class ConvNet1():
             inputs=inputs,
             pool_size=pool_size,
             strides=num_strides)
-    
+
     def create_dense_layer(self, inputs, units):
         return tf.layers.dense(
             inputs=inputs,
             units=units,
             activation=tf.nn.relu)
-    
+
     def create_dropout_layer(self, inputs, rate):
         return tf.layers.dropout(
             inputs=inputs,
@@ -61,22 +64,27 @@ class ConvNet1():
     def build_model(self):
         # -1 for dynamically sized batch
         input_layer = tf.reshape(features['x'], [-1, 224, 320, 3])
-        
+
         conv1 = self.create_conv_layer(input_layer, 128, [5, 5])
-        
+
         pool1 = self.create_pool_layer(conv1, [2, 2], 2)
-        
+
         conv2 = self.create_pool_layer(pool1, 256, [5, 5])
-        
+
         pool2 = self.create_pool_layer(conv2, [2, 2], 2)
 
         pool2_flat = tf.reshape(pool2, [-1, 56 * 80 * 256])
-        
-        dense1 = self.creaet_dense_layer(pool2_flat, 1024)
-        
+
+        dense1 = self.create_dense_layer(pool2_flat, 1024)
+
         dropout1 = self.create_dropout_layer(dense1, 0.4)
 
-if __name__ == '__main__':    
+        dense2 = self.create_dense_layer(dropout1, 512)
+
+        dropout2 = self.create_dropout_layer(dense2, 0.2)
+
+        output_layer = tf.layers.dense(dropout2, self.action_dim) # player actions
+
+if __name__ == '__main__':
     convnet = ConvNet1()
     convnet.set_hyperparams(0.0001)
-        
