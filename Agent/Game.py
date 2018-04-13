@@ -14,12 +14,10 @@ class Game():
         action_size: Array
     ''' 
     def get_action_dim(self):
-        self.action_size = int(self.env.action_space.n)
-        print('action_size', self.action_size, type(self.action_size))
+        self.action_dim = int(self.env.action_space.n)
 
     def get_obs_dim(self):
-        self.obs_size = self.env.observation_space.low.shape
-        print('obs_size', self.obs_size, type(self.obs_size))
+        self.obs_dim = self.env.observation_space.low.shape
     
     '''
         UTILS
