@@ -16,9 +16,9 @@ class ConvNet1():
         self.learning_rate_decay = params['learning_rate_decay']
         self.learning_rate_min = params['learning_rate_min']
 
-        self.exploration_rate =  params['exploratin_rate']
-        self.exploratin_rate_decay = params['exploration_rate_decay']
-        self.exploration_rate_min = params['exploratin_rate_min']
+        self.exploration_rate =  params['exploration_rate']
+        self.exploration_rate_decay = params['exploration_rate_decay']
+        self.exploration_rate_min = params['exploration_rate_min']
 
         self.discount_rate = params['discount_rate']
 
@@ -26,11 +26,7 @@ class ConvNet1():
         self.obs_dim = obs_dim
 
     def set_action_dim(self, action_dim):
-
-
-    def calc_num_filters(self):
-        assert self.obs_dim
-        return True
+        self.actoin_dim = action_dim
 
     '''
         MODEL
@@ -38,7 +34,7 @@ class ConvNet1():
     def create_conv_layer(self, inputs, num_filters, kernal_size):
         return tf.layers.conv2d(
             inputs=inputs,
-            filters=num_filters),
+            filters=num_filters,
             kernal_size=kernal_size,
             padding="same",
             activation=tf.nn.relu)
@@ -59,7 +55,6 @@ class ConvNet1():
         return tf.layers.dropout(
             inputs=inputs,
             rate=rate)
-
 
     def build_model(self):
         # -1 for dynamically sized batch
