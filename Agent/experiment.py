@@ -14,3 +14,6 @@ hyperparams1 = {
 
 if __name__ == '__main__':
     convnet = ConvNet1(hyperparams1)
+    game = Game()
+    convnet.set_action_dim(game.action_dim)
+    convnet.set_obs_dim(game.obs_dim)
