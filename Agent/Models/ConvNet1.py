@@ -26,7 +26,7 @@ class ConvNet1():
         self.obs_dim = obs_dim
 
     def set_action_dim(self, action_dim):
-        self.actoin_dim = action_dim
+        self.action_dim = action_dim
 
     '''
         MODEL
@@ -57,10 +57,12 @@ class ConvNet1():
             rate=rate)
 
     def build_model(self):
+        assert self.obs_dim
+        assert self.action_dim
         # -1 for dynamically sized batch
-        input_layer = tf.reshape(features['x'], [-1, 224, 320, 3])
+        input_layer = tf.reshape(tf.float32, [None, 224, 320, 3])
 
-        conv1 = self.create_conv_layer(input_layer, 128, [5, 5])
+        conv1 = self.create_conv_layer(input_layer, 32, [8, 8], [4, 4])
 
         pool1 = self.create_pool_layer(conv1, [2, 2], 2)
 
